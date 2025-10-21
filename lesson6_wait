@@ -11,16 +11,20 @@ def calc(x):
 
 
 try:
+    # Инициализация браузера
     browser = webdriver.Chrome()
     browser.get("http://suninjuly.github.io/explicit_wait2.html")
 
+    # 1. Ожидаем, когда цена станет $100 (ждем до 15 секунд)
     price = WebDriverWait(browser, 15).until(
         EC.text_to_be_present_in_element((By.ID, "price"), "$100")
     )
 
+    # 2. Нажимаем кнопку Book
     book_button = browser.find_element(By.ID, "book")
     book_button.click()
 
+    # 3. Решаем математическую задачу
     x_element = browser.find_element(By.ID, "input_value")
     x = x_element.text
     y = calc(x)
@@ -32,5 +36,6 @@ try:
     submit_button.click()
 
 finally:
+    # Даем время скопировать код
     time.sleep(10)
     browser.quit()
